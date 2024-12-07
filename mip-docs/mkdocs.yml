@@ -1,0 +1,35 @@
+site_name: Made In Python
+theme:
+  name: material
+  palette:
+    scheme: auto  # Automatically switches between light/dark
+    primary: blue
+    accent: light-blue
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.instant
+    - content.code.annotate
+    - content.tabs.link
+
+# Navigation
+nav:
+  - Home: index.md
+  - Guides:
+      - Introduction: guides/introduction.md
+
+# Plugins
+plugins:
+  - search  # Enables search functionality
+  #- mkdocs-material-extensions  # Optional extensions
+
+# Markdown extensions
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - pymdownx.superfences
+  - pymdownx.tabbed

@@ -3,7 +3,7 @@ name: Deploy MkDocs to GitHub Pages
 on:
   push:
     branches:
-      - main  # Trigger workflow on pushes to the main branch
+      - trunk  # Trigger workflow on pushes to the trunk branch
 
 jobs:
   deploy:

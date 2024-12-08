@@ -1,7 +1,7 @@
-############
-# PROJECT.PY
-# Containts structures and functions around the projects
-############
+##########################################################
+# PROJECT.PY                                             #
+# Containts structures and functions around the projects #
+##########################################################
 
 from enum import Enum
 import os
@@ -97,6 +97,11 @@ class Project:
         """
         return self.assembler
     
+    def set_assember(self, assembler: str):
+        """
+        Sets the new assembler binary
+        """
+        self.assembler = assembler    
     
 
     def get_src_files(self) -> list:

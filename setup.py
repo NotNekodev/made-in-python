@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="mip",
+    name="made-in-python",
     version="2024.0-alpha",
     packages=find_packages(),
     description="A Python-based build system",

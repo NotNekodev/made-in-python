@@ -5,6 +5,7 @@
 
 from enum import Enum
 import os
+from . import *
 
 class Languages(Enum):
     C=1,
@@ -21,6 +22,8 @@ class Project:
         self.files = []
         self.compile_args = []
         self.link_args = []
+
+        self.subprojects = []
 
         # Default Varaibles. Can be changed with the appropriate functions
         self.out_dir = "build/"
@@ -185,9 +188,18 @@ class Project:
 
     def add_link_argument(self, argument: str):
         """
-        Adds and argument to the link command. ONLY USED IN ASM PROJECTS RN
+        Adds and argument to the link command. ONLY USED IN ASM PROJECTS AT THE MOMENT
 
         Args:
             argument (str): The argument to add (with the "-")
         """
         self.link_args.append(argument)
+
+    def add_subproject(self, project: 'Project'):
+        """
+        Adds the Project in "project" to the list of subprojects, which get compiled
+
+        Args:
+            project (Project): The project to add to the subprojects
+        """
+        self.subprojects.append(project)

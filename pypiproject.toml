@@ -3,10 +3,10 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "mip"
+name = "made-in-python"
 version = "2024.0-alpha"
 description = "A Python-based build system"
-authors = [{ name = "Nekodev", email = "info@volartrix.xyz" }]
+authors = [{ name = "NotNekodev", email = "info@volartrix.xyz" }]
 readme = "README.md"
 license = { file = "LICENSE" }
 keywords = ["buildsystem", "c", "c++", "asm"]
@@ -17,6 +17,20 @@ classifiers = [
     "Programming Language :: Python",
 ]
 
+long_description = """
+# Made In Python
+Made In Python is a build system written in Python where you can write Python build scripts while Made In Python covers the complex
+parts
+
+## How to install
+```bash
+pip install made-in-python
+```
+
+"""
+long_description_content_type = "text/markdown"
+
+## Installation
 [project.urls]
 Homepage = "https://volartrix.xyz/"
 Documentation = "https://volartrix.xyz/mip-docs"

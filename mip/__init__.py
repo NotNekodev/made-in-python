@@ -16,6 +16,18 @@ def build_proj(proj: project.Project) -> int:
 
     obj_files = []
 
+    if proj.subprojects.count is 0:
+        print("No subprojects found, skipping to main project")
+    elif proj.subprojects >= 1:
+        print(f"Found {proj.subprojects.count}! Building them.")
+        while proj.subprojects:
+            sproj = proj.subprojects.pop()
+            if sproj.name == proj.name:
+                print(f"Recursion found in subproject {sproj.name}! Not buidling that one!")
+                break
+            build_proj(sproj)
+            print(f"Built subproject {sproj.name}!")
+
     """
     Buils the project specified in proj
 

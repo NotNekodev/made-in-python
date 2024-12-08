@@ -19,6 +19,8 @@ class Project:
 
         # Create Files list, empty right now
         self.files = []
+        self.compile_args = []
+        self.link_args = []
 
         # Default Varaibles. Can be changed with the appropriate functions
         self.out_dir = "build/"
@@ -56,6 +58,20 @@ class Project:
             raise FileNotFoundError(f"The file '{path}' does not exist.")
         
         self.files.append(path)
+
+    def add_src_dir(self, dir_path: str, file_type: str):
+        """
+        Adds every file with the extension file_type that is located in dir_path and its subfolders to the source files
+
+        Args:
+            dir_path (str): Path to the directory with all the files
+            file_type (str): The file extension for the files used (e.g. ".c")
+        """
+        for root, _, files in os.walk(dir_path):
+            for file in files:
+                if file.endswith(file_type):
+                    self.files.append(os.path.join(root, file))
+
 
     #
     # Getters and setters
@@ -157,3 +173,21 @@ class Project:
             executable (str): The name of the final executable
         """
         return self.executable
+    
+    def add_compile_argument(self, argument: str):
+        """
+        Adds an argument to the compile command
+
+        Args:
+            argument (str): The argument to add (with the "-")
+        """
+        self.compile_args.append(argument)
+
+    def add_link_argument(self, argument: str):
+        """
+        Adds and argument to the link command. ONLY USED IN ASM PROJECTS RN
+
+        Args:
+            argument (str): The argument to add (with the "-")
+        """
+        self.link_args.append(argument)

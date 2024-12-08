@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mip"
+version = "2024.0-alpha"
+description = "A Python-based build system"
+authors = [{ name = "Nekodev", email = "info@volartrix.xyz" }]
+readme = "README.md"
+license = { file = "LICENSE" }
+keywords = ["buildsystem", "c", "c++", "asm"]
+dependencies = []
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python",
+]
+
+[project.urls]
+Homepage = "https://volartrix.xyz/"
+Documentation = "https://volartrix.xyz/mip-docs"
+Repository = "https://github.com/Volartrix/made-in-python.git"
+Issues = "https://github.com/Volartrix/made-in-python/issues"
+
+
+[tool.setuptools]
+packages = "find:"
+
+[tool.setuptools.package-data]
+# Example of including non-Python files (if any)
+# mip = ["data/*.txt", "data/*.json"]
+
+[tool.setuptools.entry-points.console_scripts]
+# Example of defining a console script entry point
+# mip-cli = "mip:main"

@@ -38,7 +38,7 @@ def build_proj(proj: project.Project) -> int:
 
     if proj.language is project.Languages.C or proj.language is project.Languages.CXX:
         for file in proj.get_src_files():
-            bs.execute(f"{proj.get_compiler()} -c {file} -o {proj.get_build_dir()}/{re.sub(r'^.*/', '', file)}.o")
+            bs.execute(f"{proj.get_compiler()} {' '.join(proj.compile_args)} -c {file} -o {proj.get_build_dir()}/{re.sub(r'^.*/', '', file)}.o")
 
             obj_files.append(f"{proj.get_build_dir()}/{re.sub(r'^.*/', '', file)}.o")
      
@@ -51,11 +51,11 @@ def build_proj(proj: project.Project) -> int:
 
     elif proj.language is project.Languages.ASM:
         for file in proj.get_src_files():
-            bs.execute(f"{proj.get_assembler()} -felf64 {file} -o {proj.get_build_dir()}/{re.sub(r'^.*/', '', file)}.o")
+            bs.execute(f"{proj.get_assembler()} {' '.join(proj.compile_args)}  -felf64 {file} -o {proj.get_build_dir()}/{re.sub(r'^.*/', '', file)}.o")
 
             obj_files.append(f"{proj.get_build_dir()}/{re.sub(r'^.*/', '', file)}.o")
 
-        bs.execute(f"{proj.get_linker()} {' '.join(obj_files)} -o {proj.get_build_dir()}/{proj.get_executable_name()}")
+        bs.execute(f"{proj.get_linker()} {' '.join(proj.link_args)} {' '.join(obj_files)} -o {proj.get_build_dir()}/{proj.get_executable_name()}")
 
         if os.path.exists(f"{proj.get_build_dir()}/{proj.get_executable_name()}") == False:
             raise FileNotFoundError(f"The executable {proj.get_build_dir()}/{proj.get_executable_name()} wasnt found!")

@@ -24,6 +24,9 @@ class Project:
         self.out_dir = "build/"
         self.compiler = "/usr/bin/clang" # clang based
         self.assembler = "/usr/bin/nasm" # nasm is also based
+        self.linker = "/usr/bin/ld"
+
+        self.executable = name.lower()
         
     def info(self):
         """
@@ -32,6 +35,12 @@ class Project:
         print(f"Project Info:")
         print(f"  Name: {self.name}")
         print(f"  Language: {self.language.name}")
+        print(f"  Build Dir: {self.out_dir}")
+        print(f"  Compiler: {self.compiler}")
+        print(f"  Assembler: {self.assembler}")
+        print(f"  Linker: {self.linker}")
+        print(f"  Source Files: {self.files}")
+        print(f"  Executable Name: {self.executable}")
 
     def add_src_file(self, path: str):
         """
@@ -102,6 +111,24 @@ class Project:
         Sets the new assembler binary
         """
         self.assembler = assembler    
+
+    def get_linker(self) -> str:
+        """
+        Gets the linker binary
+
+        Returns:
+            linker (str): The path to the linker binary
+        """
+        return self.linker
+    
+    def set_linker(self, linker: str):
+        """
+        Sets the linker binary
+
+        Args:
+            linker (str): The path to the linker binary
+        """
+        self.linker = linker
     
 
     def get_src_files(self) -> list:
@@ -112,4 +139,21 @@ class Project:
             files (list): The list of added source files
         """
         return self.files
+    
+    def set_executable_name(self, name: str):
+        """
+        Sets the name of the final execuatble
+
+        Args:
+            name (str): The name of the final executable
+        """
+        self.executable = name
         
+    def get_executable_name(self) -> str:
+        """
+        Gets the name of the final exeutable
+
+        Returns:
+            executable (str): The name of the final executable
+        """
+        return self.executable

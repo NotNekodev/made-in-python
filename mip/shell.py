@@ -27,25 +27,20 @@ class Shell:
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
-            shell=False,
+            shell=False
         )
         self.cwd_history = [os.getcwd()]  # Initialize with the current working directory
 
-    def execute(self, command: str) -> str:
+    def execute(self, command: str):
         """
         Executes a command in the shell and returns the result as a string.
         Args:
             command (str): The command to execute.
-        Returns:
-            str: The output of the command.
         """
         if not self.process or not self.process.stdin or not self.process.stdout:
             raise RuntimeError("Shell is not initialized properly.")
 
-        self.process.stdin.write(command + "\n")
-        self.process.stdin.flush()
-        output = self.process.stdout.readline().strip()
-        return output
+        os.system(command)
 
     def cd(self, path: str):
         """

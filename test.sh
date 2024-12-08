@@ -6,5 +6,10 @@
 
 pip install -e .
 pip list
+clear
 cd test
-python test.py
+cd asm-test
+python build.py
+cd ..
+cd c-test
+python build.py

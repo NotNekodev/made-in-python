@@ -3,16 +3,28 @@
 # The librarys main file #
 ##########################
 
-# Codes
-MIP_SUCCESS = 0x0
-MIP_FAILURE = 0x1
+
 
 from . import project
 from . import shell
 import os
 import re
 
-def build_proj(proj: project.Project) -> int:
+# Codes
+MIP_SUCCESS = 0x0
+MIP_FAILURE = 0x1
+
+def build_proj(proj: project.Project, link: bool = True) -> int:
+    """
+    Buils the project specified in proj, including all subprojects.
+
+    Args:
+        proj (project.Project): The project that you want to build
+        link (opt, bool): If you would like to link the project
+    Returns:
+        result: MIP_SUCCESS (0) on success and MIP_FAILURE (1) on error
+    """
+
 
     obj_files = []
 
@@ -28,15 +40,7 @@ def build_proj(proj: project.Project) -> int:
             build_proj(sproj)
             print(f"Built subproject {sproj.name}!")
 
-    """
-    Buils the project specified in proj
-
-    Args:
-        proj (project.Project): The project that you want to build
-
-    Returns:
-        result: MIP_SUCCESS (0) on success and MIP_FAILURE (1) on error
-    """
+    
 
     # Create a new shell
     bs = shell.Shell(name="build shell", shell="/bin/bash")
@@ -54,12 +58,15 @@ def build_proj(proj: project.Project) -> int:
 
             obj_files.append(f"{proj.get_build_dir()}/{re.sub(r'^.*/', '', file)}.o")
      
-        bs.execute(f"{proj.get_compiler()} {' '.join(obj_files)} -o {proj.get_build_dir()}/{proj.get_executable_name()}")
+        if link is True:
+            bs.execute(f"{proj.get_compiler()} {' '.join(obj_files)} -o {proj.get_build_dir()}/{proj.get_executable_name()}")
 
-        if os.path.exists(f"{proj.get_build_dir()}/{proj.get_executable_name()}") == False:
-            raise FileNotFoundError(f"The executable {proj.get_build_dir()}/{proj.get_executable_name()} wasnt found!")
+            if os.path.exists(f"{proj.get_build_dir()}/{proj.get_executable_name()}") == False:
+                raise FileNotFoundError(f"The executable {proj.get_build_dir()}/{proj.get_executable_name()} wasnt found!")
     
-        print(f"Linked final executable {proj.get_build_dir()}/{proj.get_executable_name()}!")
+            print(f"Linked final executable {proj.get_build_dir()}/{proj.get_executable_name()}!")
+        else:
+            print("Not linking. Link is false!")
 
     elif proj.language is project.Languages.ASM:
         for file in proj.get_src_files():
@@ -67,12 +74,15 @@ def build_proj(proj: project.Project) -> int:
 
             obj_files.append(f"{proj.get_build_dir()}/{re.sub(r'^.*/', '', file)}.o")
 
-        bs.execute(f"{proj.get_linker()} {' '.join(proj.link_args)} {' '.join(obj_files)} -o {proj.get_build_dir()}/{proj.get_executable_name()}")
+        if link is True:
+            bs.execute(f"{proj.get_linker()} {' '.join(obj_files)} -o {proj.get_build_dir()}/{proj.get_executable_name()}")
 
-        if os.path.exists(f"{proj.get_build_dir()}/{proj.get_executable_name()}") == False:
-            raise FileNotFoundError(f"The executable {proj.get_build_dir()}/{proj.get_executable_name()} wasnt found!")
+            if os.path.exists(f"{proj.get_build_dir()}/{proj.get_executable_name()}") == False:
+                raise FileNotFoundError(f"The executable {proj.get_build_dir()}/{proj.get_executable_name()} wasnt found!")
     
-        print(f"Linked final executable {proj.get_build_dir()}/{proj.get_executable_name()}!")
+            print(f"Linked final executable {proj.get_build_dir()}/{proj.get_executable_name()}!")
+        else:
+            print("Not linking. Link is false!")
 
 
     return MIP_SUCCESS

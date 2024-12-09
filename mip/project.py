@@ -20,10 +20,16 @@ class Project:
 
         # Create Files list, empty right now
         self.files = []
+
+        # Arguments for the different commands
         self.compile_args = []
         self.link_args = []
 
+        # Subprojects
         self.subprojects = []
+
+        # For printing like "[33%] Compiled example.c"
+        self.steps = []
 
         # Default Varaibles. Can be changed with the appropriate functions
         self.out_dir = "build/"
@@ -75,6 +81,13 @@ class Project:
                 if file.endswith(file_type):
                     self.files.append(os.path.join(root, file))
 
+
+    def add_link_library(self, lib_path: str):
+        """
+        Adds the library defined in lib_path to the project
+
+        
+        """
 
     #
     # Getters and setters
